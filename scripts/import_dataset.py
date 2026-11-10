@@ -15,11 +15,12 @@ from utils.context import settings
 def main():
     parser = argparse.ArgumentParser(description="Repeatable Jira Bulk Importer for Dataset")
     parser.add_argument("--file", default=os.path.join(DATA_DIR, "dataset.json"), help="Path to dataset.json")
-    parser.add_argument("--project", default="REL", help="Jira Project Key")
+    parser.add_argument("--project", default=settings.jira_project_key or "KAN", help="Jira Project Key")
     parser.add_argument("--mock", action="store_true", help="Force in-memory mock client even if cloud credentials exist")
+    parser.add_argument("--cloud", action="store_true", help="Force live Jira Cloud client")
     args = parser.parse_args()
 
-    print(f"=== Jira Dataset Bulk Importer ===")
+    print("=== Jira Dataset Bulk Importer ===")
     print(f"Dataset File: {args.file}")
     print(f"Project Key:  {args.project}")
 
@@ -27,19 +28,22 @@ def main():
         print(f"Error: Dataset file not found at {args.file}")
         sys.exit(1)
 
-    if not args.mock and settings.JIRA_BASE_URL and settings.JIRA_API_TOKEN:
-        print(f"Connecting to Jira Cloud at: {settings.JIRA_BASE_URL} ({settings.JIRA_USER_EMAIL})")
+    use_cloud = args.cloud or (not args.mock and bool(settings.jira_base_url and settings.jira_api_token and not settings.use_mock_jira))
+
+    if use_cloud:
+        print(f"Connecting to Jira Cloud at: {settings.jira_base_url} ({settings.jira_user_email})")
         client = JiraCloudClient(
-            base_url=settings.JIRA_BASE_URL,
-            user_email=settings.JIRA_USER_EMAIL,
-            api_token=settings.JIRA_API_TOKEN
+            base_url=settings.jira_base_url,
+            user_email=settings.jira_user_email,
+            api_token=settings.jira_api_token,
+            project_key=args.project
         )
     else:
         print("Using High-Performance In-Memory Mock Jira Client")
         client = MockJiraClient()
 
     importer = JiraBulkImporter(client=client)
-    stats = importer.import_from_json(args.file, project_key=args.project)
+    stats = importer.import_from_json(args.file, project_key=args.project, batch_delay=0.05 if use_cloud else 0.0)
 
     print("\n--- Import Summary ---")
     print(f"Issues Created:   {stats.get('issues_created', 0)}")
@@ -49,4 +53,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

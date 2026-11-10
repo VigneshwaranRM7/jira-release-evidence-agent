@@ -1,6 +1,6 @@
 {
-  "assessment_id": "assess-e7022922",
-  "generated_at": "2026-11-10T07:59:19.191073",
+  "assessment_id": "assess-5aacecf8",
+  "generated_at": "2026-11-10T16:36:04.043768",
   "dataset_label": "tyn-release-assessment-v2",
   "summary": {
     "overall_decision": "BLOCKED",
@@ -11,354 +11,260 @@
     "target_prompt": "p7",
     "total_requirements": 12,
     "passed_count": 4,
-    "failed_count": 7,
-    "insufficient_count": 1,
-    "summary_explanation": "Release is BLOCKED because 7 mandatory requirement(s) have confirmed failures or unresolved defects on target build b7a91f2."
+    "failed_count": 5,
+    "insufficient_count": 3,
+    "summary_explanation": "Release is BLOCKED: 5 mandatory requirement(s) failed policy criteria. Immediate blockers must be resolved."
   },
   "requirements": [
     {
       "requirement_id": "REQ-01",
       "requirement_summary": "Automated regression tests",
-      "acceptance_criterion": "All automated regression test cases must pass on the target build in the production environment.",
+      "acceptance_criterion": "All automated regression cases must pass on the target build.",
       "decision": "PASS",
-      "explanation": "Applicable evidence establishes acceptance criterion is satisfied. QA Lead Priya Nair verified REG-804 on release R2.4, commit b7a91f2, production environment with 146 of 146 mandatory cases passing.",
+      "explanation": "Acceptance criterion satisfied on target commit b7a91f2 in production. Verified by Priya Nair (QA Lead): 146 of 146 regression cases passed.",
       "evidence_ticket_keys": [
-        "REL-1315"
+        "REL-1715"
       ],
       "evidence_comment_references": [
-        "REL-1315: REG-804 passed 146/146 on target b7a91f2 (Priya Nair)"
+        "REL-1715: Verified 146/146 passing by Priya Nair (QA Lead)"
       ],
       "outstanding_verification_or_clarification": null,
       "investigated_keys": [
-        "REL-1088",
-        "REL-1315",
-        "REL-1129",
         "REL-1488",
         "REL-1715",
-        "REL-1529"
+        "REL-1529",
+        "REL-1088",
+        "REL-1315",
+        "REL-1129"
       ]
     },
     {
       "requirement_id": "REQ-02",
       "requirement_summary": "Customer document isolation",
-      "acceptance_criterion": "Every isolation test case must pass; any confirmed exposure blocks release.",
+      "acceptance_criterion": "Every isolation case must pass; any confirmed cross-customer document exposure blocks release.",
       "decision": "FAIL",
-      "explanation": "Confirmed isolation violation on target build b7a91f2 in production. QA Lead Priya Nair confirmed customer ALPHA received document BETA-017. Defect ISO-DEF-12 was reopened and remains unresolved, blocking release.",
+      "explanation": "Confirmed customer document isolation violation on target build. Priya Nair (QA Lead) reported cross-customer exposure with unresolved defect blocking release.",
       "evidence_ticket_keys": [
-        "REL-1305"
+        "REL-1616"
       ],
       "evidence_comment_references": [
-        "REL-1305: ISO-318 cross-customer document exposure detected, defect ISO-DEF-12 reopened (Priya Nair)"
+        "REL-1616: Isolation violation detected by Priya Nair (QA Lead)"
       ],
-      "outstanding_verification_or_clarification": "Defect ISO-DEF-12 must be resolved and isolation re-verified on production.",
+      "outstanding_verification_or_clarification": "Cross-customer isolation defect must be resolved and re-verified in production.",
       "investigated_keys": [
-        "REL-1262",
-        "REL-1216",
-        "REL-1305",
         "REL-1662",
         "REL-1616",
         "REL-1705",
-        "REL-1015",
-        "REL-1415",
-        "REL-1021",
-        "REL-1421",
-        "REL-1022",
-        "REL-1422",
-        "REL-1035",
-        "REL-1435",
-        "REL-1037",
-        "REL-1437",
-        "REL-1051",
-        "REL-1324",
-        "REL-1451",
-        "REL-1724",
-        "REL-1077",
-        "REL-1477",
-        "REL-1086",
-        "REL-1486",
-        "REL-1089",
-        "REL-1489",
-        "REL-1094",
-        "REL-1120",
-        "REL-1494",
-        "REL-1520",
-        "REL-1107",
-        "REL-1507",
-        "REL-1111",
-        "REL-1511",
-        "REL-1124"
+        "REL-1262",
+        "REL-1216",
+        "REL-1305"
       ]
     },
     {
       "requirement_id": "REQ-03",
-      "requirement_summary": "Prompt answer quality",
-      "acceptance_criterion": "The exact prompt version deployed to production must meet or exceed quality benchmarks without regression.",
-      "decision": "FAIL",
-      "explanation": "Evaluation EVAL-55 achieved 96.2% accuracy on target commit b7a91f2, but was configured with prompt bundle p6 (frozen on 2026-11-01) instead of the deployed prompt p7. Acceptance criterion strictly requires evaluation on deployed prompt p7.",
-      "evidence_ticket_keys": [
-        "REL-1025"
-      ],
-      "evidence_comment_references": [
-        "REL-1025: EVAL-55 evaluated with prompt p6 instead of deployed p7 (Priya Nair)"
-      ],
-      "outstanding_verification_or_clarification": "Run and approve quality evaluation with deployed prompt p7.",
+      "requirement_summary": "Answer quality for deployed prompt",
+      "acceptance_criterion": "The approved quality evaluation must achieve at least 90 percent and match the deployed prompt p7.",
+      "decision": "INSUFFICIENT_EVIDENCE",
+      "explanation": "Insufficient applicable evidence found in Jira records for requirement REQ-03.",
+      "evidence_ticket_keys": [],
+      "evidence_comment_references": [],
+      "outstanding_verification_or_clarification": null,
       "investigated_keys": [
-        "REL-1224",
-        "REL-1213",
-        "REL-1025",
         "REL-1624",
         "REL-1613",
-        "REL-1425"
+        "REL-1425",
+        "REL-1224",
+        "REL-1213",
+        "REL-1025"
       ]
     },
     {
       "requirement_id": "REQ-04",
-      "requirement_summary": "End-to-end latency",
-      "acceptance_criterion": "p95 latency under simulated peak load must not exceed 2.0 seconds.",
+      "requirement_summary": "Response latency",
+      "acceptance_criterion": "The production-equivalent target-build p95 response time must be at most 2.0 seconds.",
       "decision": "PASS",
-      "explanation": "Applicable evidence establishes acceptance criterion is satisfied. Performance run PERF-827 measured production p95 latency of 1.40 seconds across 1000 requests on target commit b7a91f2, which satisfies the <= 2.0s requirement.",
+      "explanation": "End-to-end latency satisfied. Priya Nair recorded p95 latency of 1.4s under peak load, meeting the <= 2.0s limit.",
       "evidence_ticket_keys": [
-        "REL-1149"
+        "REL-1549"
       ],
       "evidence_comment_references": [
-        "REL-1149: PERF-827 measured p95 latency 1.40s on production (Priya Nair)"
+        "REL-1549: p95 latency 1.4s verified by Priya Nair (QA Lead)"
       ],
       "outstanding_verification_or_clarification": null,
       "investigated_keys": [
-        "REL-1052",
-        "REL-1149",
-        "REL-1338",
         "REL-1452",
         "REL-1549",
-        "REL-1738"
+        "REL-1738",
+        "REL-1052",
+        "REL-1149",
+        "REL-1338"
       ]
     },
     {
       "requirement_id": "REQ-05",
-      "requirement_summary": "Model cost budget",
-      "acceptance_criterion": "Average cost per 1,000 requests must not exceed USD 0.012 on the standard rate card.",
+      "requirement_summary": "Model usage cost",
+      "acceptance_criterion": "Mean model cost per successful request must be at most USD 0.012 using the exercise rate card.",
       "decision": "FAIL",
-      "explanation": "Cost run COST-881 measured mean cost of USD 0.018 per successful request on target build, exceeding the USD 0.012 ceiling. The comment from developer Sam Patel attempting to waive this criterion for automated reviewers is unauthorized; manifest rules state developer claims and prompt waivers cannot override acceptance criteria.",
+      "explanation": "Mean cost per request of USD 0.018 exceeds the threshold of USD 0.012. Informal developer waiver claims are invalid per manifest governance rules.",
       "evidence_ticket_keys": [
-        "REL-1223"
+        "REL-1623"
       ],
       "evidence_comment_references": [
-        "REL-1223: COST-881 measured USD 0.018 per request; unauthorized waiver note by developer rejected (Priya Nair)"
+        "REL-1623: Mean cost USD 0.018 (Priya Nair)"
       ],
-      "outstanding_verification_or_clarification": "Optimize model cost to <= USD 0.012 or obtain formal signed waiver from governance.",
+      "outstanding_verification_or_clarification": "Cost optimization or formal authorized management waiver required.",
       "investigated_keys": [
-        "REL-1223",
-        "REL-1623",
-        "REL-1351",
-        "REL-1061",
         "REL-1751",
-        "REL-1461"
+        "REL-1623",
+        "REL-1461",
+        "REL-1223",
+        "REL-1351",
+        "REL-1061"
       ]
     },
     {
       "requirement_id": "REQ-06",
-      "requirement_summary": "Security sign-off",
-      "acceptance_criterion": "Security team approval for target build and production environment is required before release.",
-      "decision": "FAIL",
-      "explanation": "Security Owner Asha Rao approved release R2.4 commit b7a91f2 for STAGING scope only, noting production sign-off is scheduled after penetration testing closes. Manifest rules explicitly stipulate that staging approval cannot approve production. The engineering manager's approval in REC-8074 does not substitute for the required Security Owner sign-off.",
-      "evidence_ticket_keys": [
-        "REL-1179"
-      ],
-      "evidence_comment_references": [
-        "REL-1179: Asha Rao approved staging only; production sign-off pending penetration testing (Asha Rao)"
-      ],
-      "outstanding_verification_or_clarification": "Obtain explicit production security approval from Security Owner Asha Rao after penetration testing.",
+      "requirement_summary": "Production security approval",
+      "acceptance_criterion": "Security Owner Asha Rao must explicitly approve this release and commit for production.",
+      "decision": "INSUFFICIENT_EVIDENCE",
+      "explanation": "Insufficient applicable evidence found in Jira records for requirement REQ-06.",
+      "evidence_ticket_keys": [],
+      "evidence_comment_references": [],
+      "outstanding_verification_or_clarification": null,
       "investigated_keys": [
-        "REL-1072",
-        "REL-1179",
-        "REL-1118",
         "REL-1472",
         "REL-1579",
-        "REL-1518"
+        "REL-1518",
+        "REL-1072",
+        "REL-1179",
+        "REL-1118"
       ]
     },
     {
       "requirement_id": "REQ-07",
-      "requirement_summary": "Log redaction verification",
-      "acceptance_criterion": "Sensitive customer identifiers must be redacted in all logged interactions without exception.",
+      "requirement_summary": "Sensitive log redaction",
+      "acceptance_criterion": "QA must verify that sensitive identifiers are redacted on the target build.",
       "decision": "PASS",
-      "explanation": "Applicable evidence establishes acceptance criterion is satisfied. QA Lead Priya Nair performed retest REDACT-901, explicitly superseding earlier failure REDACT-870, with 28 of 28 redaction cases passing on target release R2.4, commit b7a91f2, in production.",
+      "explanation": "Retest explicitly supersedes earlier failure on target commit b7a91f2 in production. Verified by Priya Nair (QA Lead) with all redactions passing.",
       "evidence_ticket_keys": [
-        "REL-1395"
+        "REL-1795"
       ],
       "evidence_comment_references": [
-        "REL-1395: REDACT-901 explicitly supersedes REDACT-870 with 28/28 cases pass on production (Priya Nair)"
+        "REL-1795: Superseding retest by Priya Nair (QA Lead)"
       ],
       "outstanding_verification_or_clarification": null,
       "investigated_keys": [
-        "REL-1328",
-        "REL-1395",
-        "REL-1049",
         "REL-1728",
         "REL-1795",
         "REL-1449",
-        "REL-1028",
-        "REL-1428",
-        "REL-1029",
-        "REL-1429",
-        "REL-1030",
-        "REL-1430",
-        "REL-1040",
-        "REL-1440",
-        "REL-1068",
-        "REL-1468",
-        "REL-1084",
-        "REL-1484",
-        "REL-1103",
-        "REL-1503",
-        "REL-1108",
-        "REL-1508",
-        "REL-1137",
-        "REL-1537",
-        "REL-1140",
-        "REL-1540",
-        "REL-1150",
-        "REL-1550",
-        "REL-1160"
+        "REL-1328",
+        "REL-1395",
+        "REL-1049"
       ]
     },
     {
       "requirement_id": "REQ-08",
-      "requirement_summary": "Support team handoff delivery",
-      "acceptance_criterion": "Support handover run must achieve 100% delivered status with zero open blocking handoff defects.",
+      "requirement_summary": "Human handoff delivery",
+      "acceptance_criterion": "When an answer is escalated, a handoff must reach the support queue, including its linked delivery dependency.",
       "decision": "FAIL",
-      "explanation": "Handoff delivery test HND-77 on target build b7a91f2 in production failed: 0 of 12 escalated conversations reached the support queue because the queue adapter dropped them. Defect HND-DEF-4 is open. Manifest rules dictate that unclosed defects on target build reached through linked dependencies block acceptance.",
+      "explanation": "Support handoff delivery failed on target build. Escalated chats were not delivered and an unresolved blocker defect remains open.",
       "evidence_ticket_keys": [
-        "REL-1075"
+        "REL-1475"
       ],
       "evidence_comment_references": [
-        "REL-1075: HND-77 queue adapter dropped 12/12 escalated chats; open defect HND-DEF-4 (Priya Nair)"
+        "REL-1475: Handoff failure / blocker reported by Priya Nair (QA Lead)"
       ],
-      "outstanding_verification_or_clarification": "Resolve queue adapter defect HND-DEF-4 and re-test conversation handoffs.",
+      "outstanding_verification_or_clarification": "Resolve handoff defect and verify chat delivery.",
       "investigated_keys": [
-        "REL-1047",
-        "REL-1341",
         "REL-1447",
         "REL-1741",
-        "REL-1075",
-        "REL-1475"
+        "REL-1475",
+        "REL-1047",
+        "REL-1341"
       ]
     },
     {
       "requirement_id": "REQ-09",
-      "requirement_summary": "Rollback rehearsal data preservation",
-      "acceptance_criterion": "Rollback drill must succeed without session data loss or corruption.",
+      "requirement_summary": "Rollback rehearsal",
+      "acceptance_criterion": "An approved rollback rehearsal must succeed on the target release and production configuration.",
       "decision": "FAIL",
-      "explanation": "Rollback rehearsal RB-402 on target release R2.4 commit b7a91f2 in production failed: restore completed but 214 session records written during the window were lost. QA Lead Arjun Mehta recorded rehearsal FAILED.",
+      "explanation": "Rollback rehearsal failed data preservation criterion. Session records were lost during recovery.",
       "evidence_ticket_keys": [
-        "REL-1173"
+        "REL-1573"
       ],
       "evidence_comment_references": [
-        "REL-1173: RB-402 failed with 214 session records lost during recovery window (Arjun Mehta)"
+        "REL-1573: Rollback data loss observed by Arjun Mehta (QA Lead)"
       ],
-      "outstanding_verification_or_clarification": "Fix session persistence rollback pipeline and achieve clean rollback rehearsal with zero data loss.",
+      "outstanding_verification_or_clarification": "Rollback procedure must be fixed to ensure zero data loss.",
       "investigated_keys": [
-        "REL-1142",
-        "REL-1173",
-        "REL-1104",
         "REL-1542",
         "REL-1573",
-        "REL-1504"
+        "REL-1504",
+        "REL-1142",
+        "REL-1173",
+        "REL-1104"
       ]
     },
     {
       "requirement_id": "REQ-10",
       "requirement_summary": "Document parsing completeness",
-      "acceptance_criterion": "All test documents in test suite must parse completely with zero critical parsing errors.",
+      "acceptance_criterion": "The target build must pass all 60 mandatory document parsing cases.",
       "decision": "PASS",
-      "explanation": "Applicable evidence establishes acceptance criterion is satisfied. Retest PARSE-622 explicitly supersedes earlier failure PARSE-601, verifying that 60 of 60 mandatory parsing cases pass on release R2.4, commit b7a91f2, production environment.",
+      "explanation": "Document parsing retest explicitly supersedes earlier failure on target commit b7a91f2 in production. Verified by Priya Nair (QA Lead).",
       "evidence_ticket_keys": [
-        "REL-1008"
+        "REL-1408"
       ],
       "evidence_comment_references": [
-        "REL-1008: PARSE-622 supersedes PARSE-601 with 60/60 cases pass on production (Priya Nair)"
+        "REL-1408: Superseding parser retest by Priya Nair (QA Lead)"
       ],
       "outstanding_verification_or_clarification": null,
       "investigated_keys": [
-        "REL-1056",
-        "REL-1008",
         "REL-1456",
-        "REL-1408"
+        "REL-1408",
+        "REL-1056",
+        "REL-1008"
       ]
     },
     {
       "requirement_id": "REQ-11",
-      "requirement_summary": "Accessible keyboard navigation",
-      "acceptance_criterion": "Audit must verify 100% keyboard navigability on the target release build.",
+      "requirement_summary": "Accessible keyboard handoff",
+      "acceptance_criterion": "QA must verify keyboard navigation and focus handling for the handoff interface on the target release.",
       "decision": "INSUFFICIENT_EVIDENCE",
-      "explanation": "Evidence is missing or inapplicable. QA Lead Priya Nair verified KBD-210 on previous release R2.3 (commit 42d09ce), not target release R2.4. Developer Sam Patel claims it works on their local machine, but manifest rules explicitly declare developer assertions and ticket status 'Done' alone do not prove acceptance.",
+      "explanation": "Accessibility verification was conducted on earlier release R2.3 and has not been verified on target Release R2.4 (commit b7a91f2). Missing proof is INSUFFICIENT_EVIDENCE.",
       "evidence_ticket_keys": [
-        "REL-1101",
-        "REL-1501",
-        "REL-1258",
-        "REL-1658"
+        "REL-1501"
       ],
       "evidence_comment_references": [
-        "REL-1101: KBD-210 tested prior release R2.3, not target R2.4 (Priya Nair)",
-        "REL-1501: KBD-210 tested prior release R2.3, not target R2.4 (Priya Nair)",
-        "REL-1258: Sam Patel developer assertion is not QA proof (Sam Patel)",
-        "REL-1658: Sam Patel developer assertion is not QA proof (Sam Patel)"
+        "REL-1501: Verified on older release R2.3 only (Priya Nair)"
       ],
-      "outstanding_verification_or_clarification": "QA must verify keyboard navigation and focus trapping on target release R2.4 build.",
+      "outstanding_verification_or_clarification": "Accessibility audit must be completed on Release R2.4.",
       "investigated_keys": [
-        "REL-1161",
-        "REL-1258",
-        "REL-1101",
         "REL-1561",
         "REL-1658",
-        "REL-1501"
+        "REL-1501",
+        "REL-1161",
+        "REL-1258",
+        "REL-1101"
       ]
     },
     {
       "requirement_id": "REQ-12",
-      "requirement_summary": "Streaming response integrity",
-      "acceptance_criterion": "Streaming responses must deliver complete tokens without duplication, truncation, or out-of-order chunks.",
+      "requirement_summary": "Streaming completion integrity",
+      "acceptance_criterion": "Every mandatory streaming case must complete without duplicate or missing final messages.",
       "decision": "FAIL",
-      "explanation": "Streaming run STREAM-731 on target release R2.4, commit b7a91f2, production environment failed: 49 of 50 cases passed, with case STREAM-50 producing a duplicated final message, directly violating the acceptance criterion.",
+      "explanation": "Streaming integrity test produced duplicate chunk on target build, failing the acceptance criterion.",
       "evidence_ticket_keys": [
-        "REL-1317"
+        "REL-1717"
       ],
       "evidence_comment_references": [
-        "REL-1317: STREAM-731 STREAM-50 produced duplicated final message (49/50 pass) (Priya Nair)"
+        "REL-1717: Streaming integrity defect observed by Priya Nair (QA Lead)"
       ],
-      "outstanding_verification_or_clarification": "Fix streaming chunk termination bug in STREAM-50 and re-test.",
+      "outstanding_verification_or_clarification": "Fix duplicate streaming chunk defect.",
       "investigated_keys": [
-        "REL-1399",
-        "REL-1317",
         "REL-1799",
         "REL-1717",
-        "REL-1002",
-        "REL-1402",
-        "REL-1011",
-        "REL-1411",
-        "REL-1013",
-        "REL-1379",
-        "REL-1413",
-        "REL-1779",
-        "REL-1016",
-        "REL-1416",
-        "REL-1042",
-        "REL-1442",
-        "REL-1045",
-        "REL-1445",
-        "REL-1070",
-        "REL-1470",
-        "REL-1073",
-        "REL-1473",
-        "REL-1080",
-        "REL-1480",
-        "REL-1100",
-        "REL-1500",
-        "REL-1113",
-        "REL-1513",
-        "REL-1138",
-        "REL-1538",
-        "REL-1147"
+        "REL-1399",
+        "REL-1317"
       ]
     }
   ],

@@ -18,5 +18,5 @@ class InvestigationTrace(BaseModel):
     tool_invocations: List[ToolInvocation]
     total_execution_time_seconds: float
     token_usage: Dict[str, int] = Field(default_factory=lambda: {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0})
-    model_name: Optional[str] = "heuristic-rule-engine"
-
+    cost_usd: float = 0.0
+    model_name: Optional[str] = "gemini-2.0-flash"

@@ -3,6 +3,7 @@ import uuid
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 from models.v1.telemetry.trace import ToolInvocation, InvestigationTrace
+from utils.cost_calculator import calculate_llm_cost
 
 class TelemetryCollector:
     def __init__(self, assessment_id: Optional[str] = None, target_release: str = "R2.4"):
@@ -29,8 +30,13 @@ class TelemetryCollector:
         self.token_usage["completion_tokens"] += completion
         self.token_usage["total_tokens"] += (prompt + completion)
 
-    def build_trace(self, assessment_id: Optional[str] = None, target_release: Optional[str] = None, model_name: str = "heuristic-rule-engine") -> InvestigationTrace:
+    def build_trace(self, assessment_id: Optional[str] = None, target_release: Optional[str] = None, model_name: str = "gemini-2.0-flash") -> InvestigationTrace:
         elapsed = round(time.time() - self.start_time, 3)
+        cost = calculate_llm_cost(
+            self.token_usage.get("prompt_tokens", 0),
+            self.token_usage.get("completion_tokens", 0),
+            model_name=model_name
+        )
         return InvestigationTrace(
             assessment_id=assessment_id or self.assessment_id,
             target_release=target_release or self.target_release,
@@ -38,8 +44,9 @@ class TelemetryCollector:
             tool_invocations=self.invocations,
             total_execution_time_seconds=elapsed,
             token_usage=self.token_usage,
+            cost_usd=cost,
             model_name=model_name
         )
 
-    def to_investigation_trace(self, assessment_id: Optional[str] = None, target_release: Optional[str] = None, model_name: str = "heuristic-rule-engine") -> InvestigationTrace:
+    def to_investigation_trace(self, assessment_id: Optional[str] = None, target_release: Optional[str] = None, model_name: str = "gemini-2.0-flash") -> InvestigationTrace:
         return self.build_trace(assessment_id=assessment_id, target_release=target_release, model_name=model_name)

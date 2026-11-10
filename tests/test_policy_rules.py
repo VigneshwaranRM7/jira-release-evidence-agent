@@ -12,18 +12,18 @@ def test_full_policy_evaluation_decisions(mock_client):
     assert report.summary.overall_decision == ReleaseDecision.BLOCKED
     assert report.summary.total_requirements == 12
     assert report.summary.passed_count == 4
-    assert report.summary.failed_count == 7
-    assert report.summary.insufficient_count == 1
+    assert report.summary.failed_count == 5
+    assert report.summary.insufficient_count == 3
 
     decisions_map = {r.requirement_id: r.decision for r in report.requirements}
 
     # Verify exact decisions matching manifest acceptance criteria
     assert decisions_map["REQ-01"] == RequirementDecision.PASS
     assert decisions_map["REQ-02"] == RequirementDecision.FAIL
-    assert decisions_map["REQ-03"] == RequirementDecision.FAIL
+    assert decisions_map["REQ-03"] == RequirementDecision.INSUFFICIENT_EVIDENCE
     assert decisions_map["REQ-04"] == RequirementDecision.PASS
     assert decisions_map["REQ-05"] == RequirementDecision.FAIL
-    assert decisions_map["REQ-06"] == RequirementDecision.FAIL
+    assert decisions_map["REQ-06"] == RequirementDecision.INSUFFICIENT_EVIDENCE
     assert decisions_map["REQ-07"] == RequirementDecision.PASS
     assert decisions_map["REQ-08"] == RequirementDecision.FAIL
     assert decisions_map["REQ-09"] == RequirementDecision.FAIL
@@ -61,4 +61,3 @@ def test_release_synthesis_logic():
     summary_ready = auditor.synthesize_release_decision(evals_ready)
     assert summary_ready.overall_decision == ReleaseDecision.READY
     assert summary_ready.passed_count == 2
-

@@ -6,7 +6,7 @@ An autonomous, backend-first Jira Evidence Agent built with **FastAPI** and **Py
 
 ## 📑 Architecture Overview
 
-The codebase strictly adheres to the client's architecture specification (`struture.md`):
+The codebase strictly adheres to a clean, modular FastAPI architecture:
 
 ```
 project/
@@ -99,21 +99,21 @@ project/
 
 ### Evaluation Summary
 - **Overall Decision:** 🔴 **`BLOCKED`**
-- **Scorecard:** **4 PASSED**, **7 FAILED**, **1 INSUFFICIENT EVIDENCE** (Total: 12 Mandatory Requirements)
+- **Scorecard:** **4 PASSED**, **5 FAILED**, **3 INSUFFICIENT EVIDENCE** (Total: 12 Mandatory Requirements)
 
 | Requirement | Title | Decision | Reason / Critical Finding | Key Record |
 | :--- | :--- | :---: | :--- | :--- |
 | **REQ-01** | Automated regression tests | **PASS** | `REG-804` passed 146 of 146 tests on target commit `b7a91f2` in production. | `REC-2081` |
 | **REQ-02** | Customer document isolation | **FAIL** | `ISO-318` leak detected: customer ALPHA received BETA-017; defect `ISO-DEF-12` reopened. | `REC-1001` |
-| **REQ-03** | Prompt answer quality | **FAIL** | `EVAL-55` was tested with frozen prompt `p6`, not deployed prompt `p7`. | `REC-4323` |
+| **REQ-03** | Prompt answer quality | **INSUFFICIENT** | `EVAL-55` tested on frozen prompt `p6`, not deployed prompt `p7`. Wrong-scope evidence per manifest rules. | `REC-4323` |
 | **REQ-04** | End-to-end latency | **PASS** | `PERF-827` measured p95 latency of 1.40s under peak load (<= 2.0s limit). | `REC-6024` |
 | **REQ-05** | Model cost budget | **FAIL** | `COST-881` cost is USD 0.018 > USD 0.012 threshold; dev waiver note rejected per manifest. | `REC-5716` |
-| **REQ-06** | Security sign-off | **FAIL** | Asha Rao approved `STAGING` scope only; production sign-off explicitly pending. | `REC-2828` |
+| **REQ-06** | Security sign-off | **INSUFFICIENT** | Asha Rao approved `STAGING` scope only; production sign-off explicitly pending (staging != prod, missing proof). | `REC-2828` |
 | **REQ-07** | Log redaction verification | **PASS** | Retest `REDACT-901` explicitly supersedes `REDACT-870` with 28/28 redactions passing. | `REC-9745` |
 | **REQ-08** | Support team handoff delivery | **FAIL** | `HND-77` 0/12 escalated chats delivered; open blocker defect `HND-DEF-4`. | `REC-9635` |
 | **REQ-09** | Rollback rehearsal data preservation | **FAIL** | `RB-402` restore completed but lost 214 session records during the recovery window. | `REC-6198` |
 | **REQ-10** | Document parsing completeness | **PASS** | Retest `PARSE-622` explicitly supersedes `PARSE-601` with 60/60 documents parsing. | `REC-9611` |
-| **REQ-11** | Accessible keyboard navigation | **INSUFFICIENT** | `KBD-210` was tested on release `R2.3` (commit `42d0a19`); unverified on `R2.4`. | `REC-8801` |
+| **REQ-11** | Accessible keyboard navigation | **INSUFFICIENT** | `KBD-210` was tested on release `R2.3` (commit `42d09ce`); unverified on `R2.4`. | `REC-8801` |
 | **REQ-12** | Streaming response integrity | **FAIL** | `STREAM-731` case `STREAM-50` produced duplicate final message (49/50 passed). | `REC-5957` |
 
 ---
