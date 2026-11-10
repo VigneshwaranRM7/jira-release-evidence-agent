@@ -1,6 +1,6 @@
 # Release Readiness Assessment Report
-**Assessment ID:** `assess-5aacecf8`  
-**Generated At:** `2026-11-10T16:36:04.043768`  
+**Assessment ID:** `assess-2628b95c`  
+**Generated At:** `2026-11-10T16:59:02.643280`  
 **Dataset Label:** `tyn-release-assessment-v2`
 
 ---

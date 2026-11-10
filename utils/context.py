@@ -1,8 +1,10 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
 
-load_dotenv()
+ENV_PATH = Path(__file__).resolve().parent.parent / ".env"
+load_dotenv(dotenv_path=ENV_PATH, override=True)
 
 class AppSettings(BaseSettings):
     jira_base_url: str = os.getenv("JIRA_BASE_URL", "")
